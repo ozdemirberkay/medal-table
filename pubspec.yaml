@@ -1,8 +1,6 @@
 name: medal_table
 description: A medal table showing ranking
-version: 0.0.9
-authors:
-  - Berkay Özdemir <ozdemirberkay1999@gmail.com>
+version: 0.0.1
 homepage: https://github.com/ozdemirberkay/
 repository: https://github.com/ozdemirberkay/medal-table/
 documentation: https://github.com/ozdemirberkay/medal-table/
