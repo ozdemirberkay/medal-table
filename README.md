@@ -8,7 +8,7 @@ A medal table showing ranking
 
 ## Usage Example
 ```
-MedalTable(
+            MedalTable(
               headerDecoration: BoxDecoration(
                 color: const Color(0xff091442),
                 borderRadius: BorderRadius.circular(8),
@@ -34,3 +34,4 @@ MedalTable(
 ```
 
 ## Installation
+https://pub.dev/packages/medal_table/install
