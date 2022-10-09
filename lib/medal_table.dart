@@ -17,7 +17,6 @@ class MedalTable extends StatelessWidget {
   final String? labelTitle;
   final String? valueTitle;
   final Color? backgroundColor;
-  final Color? headerColor;
   final TextStyle? textStyle;
   final TextStyle? headerTextStyle;
   final bool hideHeader;
@@ -43,7 +42,6 @@ class MedalTable extends StatelessWidget {
     this.textStyle,
     this.headerTextStyle,
     this.backgroundColor,
-    this.headerColor,
     this.hideHeader = false,
     this.headerDecoration,
   }) : super(key: key);
@@ -51,6 +49,7 @@ class MedalTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(4),
       decoration: BoxDecoration(color: backgroundColor),
       child: Column(
         children: [
@@ -61,8 +60,12 @@ class MedalTable extends StatelessWidget {
                   padding: leadingTitle != null ||
                           labelTitle != null ||
                           valueTitle != null
-                      ? const EdgeInsets.only(
-                          left: 3, right: 3, top: 3, bottom: 8)
+                      ? const EdgeInsets.all(3)
+                      : null,
+                  margin: leadingTitle != null ||
+                          labelTitle != null ||
+                          valueTitle != null
+                      ? const EdgeInsets.only(bottom: 3)
                       : null,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,7 +112,7 @@ class MedalTable extends StatelessWidget {
                   style: textStyle,
                 ),
                 firstValue != null
-                    ? Text(firstValue, style: textStyle)
+                    ? Text(firstValue.toString(), style: textStyle)
                     : const SizedBox(),
               ],
             ),
@@ -133,7 +136,7 @@ class MedalTable extends StatelessWidget {
                   style: textStyle,
                 ),
                 secondValue != null
-                    ? Text(secondValue, style: textStyle)
+                    ? Text(secondValue.toString(), style: textStyle)
                     : const SizedBox(),
               ],
             ),
@@ -157,7 +160,7 @@ class MedalTable extends StatelessWidget {
                   style: textStyle,
                 ),
                 thirdValue != null
-                    ? Text(thirdValue, style: textStyle)
+                    ? Text(thirdValue.toString(), style: textStyle)
                     : const SizedBox(),
               ],
             ),

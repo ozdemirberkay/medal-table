@@ -2,7 +2,7 @@
 # Medal Table
 A medal table showing ranking
 
-##Example
+## Example
 
 
-##Installation
+## Installation
