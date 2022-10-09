@@ -7,7 +7,8 @@ A medal table showing ranking
 ![imdb best](https://user-images.githubusercontent.com/55758394/194774111-607543b0-7411-4565-8295-80cc278f2bbc.png)
 
 ## Usage Example
-```MedalTable(
+```
+MedalTable(
               headerDecoration: BoxDecoration(
                 color: const Color(0xff091442),
                 borderRadius: BorderRadius.circular(8),
@@ -29,6 +30,7 @@ A medal table showing ranking
                 fontSize: 20,
                 color: Color(0xff6594C0),
               ),
-            )```
+            )
+```
 
 ## Installation
