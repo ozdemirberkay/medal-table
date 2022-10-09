@@ -49,7 +49,6 @@ class MedalTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(4),
       decoration: BoxDecoration(color: backgroundColor),
       child: Column(
         children: [
@@ -60,109 +59,144 @@ class MedalTable extends StatelessWidget {
                   padding: leadingTitle != null ||
                           labelTitle != null ||
                           valueTitle != null
-                      ? const EdgeInsets.all(3)
+                      ? const EdgeInsets.symmetric(vertical: 5)
                       : null,
                   margin: leadingTitle != null ||
                           labelTitle != null ||
                           valueTitle != null
-                      ? const EdgeInsets.only(bottom: 3)
+                      ? const EdgeInsets.only(bottom: 5)
                       : null,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       leadingTitle != null
-                          ? Text(
-                              leadingTitle!,
-                              textAlign: TextAlign.center,
-                              style: headerTextStyle,
+                          ? Expanded(
+                              child: Text(
+                                leadingTitle!,
+                                textAlign: TextAlign.center,
+                                style: headerTextStyle,
+                              ),
                             )
                           : const SizedBox(),
                       labelTitle != null
-                          ? Text(
-                              labelTitle!,
-                              textAlign: TextAlign.center,
-                              style: headerTextStyle,
+                          ? Expanded(
+                              child: Text(
+                                labelTitle!,
+                                textAlign: TextAlign.center,
+                                style: headerTextStyle,
+                              ),
                             )
                           : const SizedBox(),
                       valueTitle != null
-                          ? Text(
-                              valueTitle!,
-                              textAlign: TextAlign.center,
-                              style: headerTextStyle,
+                          ? Expanded(
+                              child: Text(
+                                valueTitle!,
+                                textAlign: TextAlign.center,
+                                style: headerTextStyle,
+                              ),
                             )
                           : const SizedBox(),
                     ],
                   ),
                 ),
-          GestureDetector(
-            onTap: firstPressed,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                firstLeading ??
-                    const CircleAvatar(
-                      backgroundColor: Color(0xffFEE101),
-                      child: Icon(
-                        Icons.looks_one,
-                        color: Colors.white,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            child: GestureDetector(
+              onTap: firstPressed,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  firstLeading ??
+                      const CircleAvatar(
+                        backgroundColor: Color(0xffFEE101),
+                        child: Icon(
+                          Icons.looks_one,
+                          color: Colors.white,
+                        ),
                       ),
+                  Expanded(
+                    child: Text(
+                      firstLabel,
+                      textAlign: TextAlign.center,
+                      style: textStyle,
                     ),
-                Text(
-                  firstLabel,
-                  style: textStyle,
-                ),
-                firstValue != null
-                    ? Text(firstValue.toString(), style: textStyle)
-                    : const SizedBox(),
-              ],
+                  ),
+                  firstValue != null
+                      ? Text(
+                          firstValue.toString(),
+                          style: textStyle,
+                          textAlign: TextAlign.center,
+                        )
+                      : const SizedBox(),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 5),
-          GestureDetector(
-            onTap: secondPressed,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                secondLeading ??
-                    const CircleAvatar(
-                      backgroundColor: Color(0xffA7A7AD),
-                      child: Icon(
-                        Icons.looks_two,
-                        color: Colors.white,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            child: GestureDetector(
+              onTap: secondPressed,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  secondLeading ??
+                      const CircleAvatar(
+                        backgroundColor: Color(0xffA7A7AD),
+                        child: Icon(
+                          Icons.looks_two,
+                          color: Colors.white,
+                        ),
                       ),
+                  Expanded(
+                    child: Text(
+                      secondLabel,
+                      textAlign: TextAlign.center,
+                      style: textStyle,
                     ),
-                Text(
-                  secondLabel,
-                  style: textStyle,
-                ),
-                secondValue != null
-                    ? Text(secondValue.toString(), style: textStyle)
-                    : const SizedBox(),
-              ],
+                  ),
+                  secondValue != null
+                      ? Text(
+                          secondValue.toString(),
+                          style: textStyle,
+                          textAlign: TextAlign.center,
+                        )
+                      : const SizedBox(),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 5),
-          GestureDetector(
-            onTap: thirdPressed,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                thirdLeading ??
-                    const CircleAvatar(
-                      backgroundColor: Color(0xffA77044),
-                      child: Icon(
-                        Icons.looks_3,
-                        color: Colors.white,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            child: GestureDetector(
+              onTap: thirdPressed,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  thirdLeading ??
+                      const CircleAvatar(
+                        backgroundColor: Color(0xffA77044),
+                        child: Icon(
+                          Icons.looks_3,
+                          color: Colors.white,
+                        ),
                       ),
+                  Expanded(
+                    child: Text(
+                      thirdLabel,
+                      textAlign: TextAlign.center,
+                      style: textStyle,
                     ),
-                Text(
-                  thirdLabel,
-                  style: textStyle,
-                ),
-                thirdValue != null
-                    ? Text(thirdValue.toString(), style: textStyle)
-                    : const SizedBox(),
-              ],
+                  ),
+                  thirdValue != null
+                      ? Text(
+                          thirdValue.toString(),
+                          style: textStyle,
+                          textAlign: TextAlign.center,
+                        )
+                      : const SizedBox(),
+                ],
+              ),
             ),
           ),
         ],
