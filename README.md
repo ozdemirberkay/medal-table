@@ -34,4 +34,5 @@ A medal table showing ranking
 ```
 
 ## Installation
-https://pub.dev/packages/medal_table/install
+[Installing](https://pub.dev/packages/medal_table/install)
+
