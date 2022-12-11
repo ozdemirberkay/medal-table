@@ -3,7 +3,8 @@
 A medal table showing ranking
 
 ## Samples
-![ucl title](https://user-images.githubusercontent.com/55758394/194774109-8af46f69-24ab-4bb6-8839-b04b18fe37b8.png)
+![ucl title](https://user-images.githubusercontent.com/55758394/206907826-d1b31d22-cda3-4277-8b9d-cf7bbdc3190d.png)
+
 ![imdb best](https://user-images.githubusercontent.com/55758394/194774111-607543b0-7411-4565-8295-80cc278f2bbc.png)
 
 ## Usage Example
