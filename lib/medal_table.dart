@@ -59,7 +59,7 @@ class MedalTable extends StatelessWidget {
                   padding: leadingTitle != null ||
                           labelTitle != null ||
                           valueTitle != null
-                      ? const EdgeInsets.symmetric(vertical: 5)
+                      ? const EdgeInsets.symmetric(vertical: 5, horizontal: 5)
                       : null,
                   margin: leadingTitle != null ||
                           labelTitle != null ||
@@ -72,7 +72,7 @@ class MedalTable extends StatelessWidget {
                           ? Expanded(
                               child: Text(
                                 leadingTitle!,
-                                textAlign: TextAlign.center,
+                                textAlign: TextAlign.left,
                                 style: headerTextStyle,
                               ),
                             )
@@ -90,7 +90,7 @@ class MedalTable extends StatelessWidget {
                           ? Expanded(
                               child: Text(
                                 valueTitle!,
-                                textAlign: TextAlign.center,
+                                textAlign: TextAlign.right,
                                 style: headerTextStyle,
                               ),
                             )
@@ -99,7 +99,7 @@ class MedalTable extends StatelessWidget {
                   ),
                 ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 7),
             child: GestureDetector(
               onTap: firstPressed,
               child: Row(
@@ -133,7 +133,7 @@ class MedalTable extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 7),
             child: GestureDetector(
               onTap: secondPressed,
               child: Row(
@@ -167,7 +167,7 @@ class MedalTable extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 7),
             child: GestureDetector(
               onTap: thirdPressed,
               child: Row(

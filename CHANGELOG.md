@@ -1,3 +1,12 @@
+## 1.0.4
+* UI improvements
+
+## 1.0.3
+* Header improvements
+
+## 1.0.2
+* Header bug fixed
+
 ## 1.0.1
 * Package usage example added
 
