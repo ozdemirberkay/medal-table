@@ -1,3 +1,6 @@
+## 2.0.1
+* Updated readme and example
+
 ## 2.0.0
 * Updated model
 
