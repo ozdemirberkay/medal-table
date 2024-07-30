@@ -1,3 +1,7 @@
+## 2.0.0
+* UI improvements
+
+
 ## 1.0.4
 * UI improvements
 

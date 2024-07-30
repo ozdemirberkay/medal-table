@@ -1,12 +1,12 @@
 name: medal_table
 description: A medal table showing ranking. It can be made into a table with different information by changing the settings
-version: 1.0.4
+version: 2.0.0
 homepage: https://github.com/ozdemirberkay/
 repository: https://github.com/ozdemirberkay/medal-table/
 documentation: https://github.com/ozdemirberkay/medal-table/
 
 environment:
-  sdk: '>=2.18.1 <3.0.0'
+  sdk: ">=2.18.1 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
