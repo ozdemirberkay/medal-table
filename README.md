@@ -3,35 +3,32 @@
 A medal table showing ranking
 
 ## Samples
-![ucl title](https://user-images.githubusercontent.com/55758394/206907826-d1b31d22-cda3-4277-8b9d-cf7bbdc3190d.png)
+![ucl](https://github.com/user-attachments/assets/ea36a0be-a054-45f8-b369-cf59d31fc5f1)
 
-![imdb best](https://user-images.githubusercontent.com/55758394/194774111-607543b0-7411-4565-8295-80cc278f2bbc.png)
+![imdb](https://github.com/user-attachments/assets/a535d420-cdd1-4ed8-9476-4885a488d6dd)
 
 ## Usage Example
 ```
-            MedalTable(
-              headerDecoration: BoxDecoration(
-                color: const Color(0xff091442),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              firstLabel: "Real Madrid",
-              secondLabel: "Milan",
-              thirdLabel: "Liverpool",
-              labelTitle: "Team",
-              leadingTitle: "Rank",
-              valueTitle: "UCL Title",
-              firstValue: "14",
-              secondValue: "7",
-              thirdValue: "6",
-              textStyle: const TextStyle(
-                fontSize: 17,
-                color: Color(0xff091442),
-              ),
-              headerTextStyle: const TextStyle(
-                fontSize: 20,
-                color: Color(0xff6594C0),
-              ),
-            )
+        MedalTable(
+          headerDecoration: BoxDecoration(
+            color: const Color(0xff091442),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          headerTextStyle: const TextStyle(
+            fontSize: 18,
+            color: Color(0xff6594C0),
+          ),
+          labelTitle: "Team",
+          leadingTitle: "Rank",
+          valueTitle: "UCL Title",
+          firstItem: TableItemModel(title: "Real Marid", value: 15),
+          secondItem: TableItemModel(title: "Milan", value: 7),
+          thirdItem: TableItemModel(title: "Liverpool", value: 6),
+          itemTextStyle: const TextStyle(
+            fontSize: 16,
+            color: Color(0xff091442),
+          ),
+        );
 ```
 
 ## Installation
