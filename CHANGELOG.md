@@ -1,6 +1,5 @@
 ## 2.0.0
-* UI improvements
-
+* Updated model
 
 ## 1.0.4
 * UI improvements
