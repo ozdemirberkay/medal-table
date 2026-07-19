@@ -6,9 +6,10 @@ it ranks them — gold, silver and bronze medals for the top three, numbered
 badges for the rest — with optional sorting, highlighting, trends and more.
 
 ## Samples
-![ucl](https://github.com/user-attachments/assets/ea36a0be-a054-45f8-b369-cf59d31fc5f1)
+<img width="324.33" height="250.66" alt="ucl" src="https://github.com/user-attachments/assets/6765bae7-3e1d-4a24-8579-3316fdcf26c1" />
+<img width="324.33" height="230" alt="olympics" src="https://github.com/user-attachments/assets/c0e2ed7d-351f-4aae-80c5-cf6d25295d42" />
+<img width="324.33" height="220" alt="imdb" src="https://github.com/user-attachments/assets/60b73c89-312a-4ac7-8d4b-ed916ed6fd5c" />
 
-![imdb](https://github.com/user-attachments/assets/a535d420-cdd1-4ed8-9476-4885a488d6dd)
 
 ## Usage
 
