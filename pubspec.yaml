@@ -1,13 +1,26 @@
 name: medal_table
 description: A medal table showing ranking. It can be made into a table with different information by changing the settings
-version: 3.0.0
-homepage: https://github.com/ozdemirberkay/
-repository: https://github.com/ozdemirberkay/medal-table/
-documentation: https://github.com/ozdemirberkay/medal-table/
+version: 3.1.0
+repository: https://github.com/ozdemirberkay/medal-table
+topics:
+  - widget
+  - table
+  - ranking
+  - leaderboard
+  - ui
+screenshots:
+  - description: 'Champions League titles: auto-sorted rows with medals, trend arrows and striped rows.'
+    path: screenshots/ucl.png
+  - description: 'Paris 2024 medal table with gold, silver and bronze columns and flag leadings.'
+    path: screenshots/olympics.png
+  - description: 'Top rated movies with custom medal colors and a highlighted, tappable row.'
+    path: screenshots/imdb.png
+  - description: 'Euro titles in a dark theme: tied rows share a rank and a medal (1, 2, 3, 3, 5).'
+    path: screenshots/shared_ranks_dark.png
 
 environment:
-  sdk: ^3.9.0
-  flutter: ">=1.17.0"
+  sdk: ^3.8.0
+  flutter: ">=3.32.0"
 
 dependencies:
   flutter:
@@ -16,6 +29,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 flutter:

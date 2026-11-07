@@ -6,9 +6,10 @@ it ranks them — gold, silver and bronze medals for the top three, numbered
 badges for the rest — with optional sorting, highlighting, trends and more.
 
 ## Samples
-<img width="324.33" height="250.66" alt="ucl" src="https://github.com/user-attachments/assets/6765bae7-3e1d-4a24-8579-3316fdcf26c1" />
-<img width="324.33" height="230" alt="olympics" src="https://github.com/user-attachments/assets/c0e2ed7d-351f-4aae-80c5-cf6d25295d42" />
-<img width="324.33" height="220" alt="imdb" src="https://github.com/user-attachments/assets/60b73c89-312a-4ac7-8d4b-ed916ed6fd5c" />
+<img width="324.33" height="262.66" alt="ucl" src="https://raw.githubusercontent.com/ozdemirberkay/medal-table/master/screenshots/ucl.png" />
+<img width="324.33" height="233.33" alt="olympics" src="https://raw.githubusercontent.com/ozdemirberkay/medal-table/master/screenshots/olympics.png" />
+<img width="324.33" height="232" alt="imdb" src="https://raw.githubusercontent.com/ozdemirberkay/medal-table/master/screenshots/imdb.png" />
+<img width="324.33" height="293.33" alt="shared ranks dark" src="https://raw.githubusercontent.com/ozdemirberkay/medal-table/master/screenshots/shared_ranks_dark.png" />
 
 
 ## Usage
@@ -42,29 +43,77 @@ MedalTable(
 | --- | --- |
 | Any number of rows | `items: List<TableItemModel>` |
 | Auto sorting | `sortByValue: true`, `descending: true` |
+| Shared ranks for ties (1, 2, 3, 3, 5) | `sharedRanks: true` |
 | Multiple value columns | `valueTitles: [...]` + `TableItemModel.values` |
 | Highlight a row | `TableItemModel(highlightColor: ...)` |
 | Alternating row colors | `oddRowColor` / `evenRowColor` |
 | Trend arrows | `showTrend: true` + `TableItemModel.trend` |
+| Trend arrow colors | `trendUpColor` / `trendDownColor` / `trendSameColor` |
 | Custom medal colors | `medalColors: [...]` |
 | Column widths | `leadingFlex` / `labelFlex` / `valueFlex` |
 | Scroll with fixed header | `maxHeight: ...` |
-| Row tap | `TableItemModel(onItemPressed: ...)` |
+| Row tap (with ripple) | `TableItemModel(onItemPressed: ...)` |
+| Screen-reader label | `semanticsLabelBuilder: (item, rank) => ...` |
+
+Numbered badges and the "same" trend marker follow your app's `ColorScheme`,
+so the table works in both light and dark themes.
+
+### Sorting
+
+With `sortByValue: true`, rows are compared by `value` first and then by
+`values`, column by column. Rows that are still equal keep the order you gave
+them, and rows without a value always go last. Set `sharedRanks: true` to give
+tied rows the same rank and medal.
 
 ### Multiple value columns (e.g. an Olympic medal table)
+
+Sorting by `values` ranks countries by gold, then silver, then bronze — no
+separate `value` needed:
 
 ```dart
 MedalTable(
   leadingTitle: 'Rank',
   labelTitle: 'Country',
-  valueTitle: 'Total', // ignored when valueTitles is set
   valueTitles: const ['Gold', 'Silver', 'Bronze'],
   sortByValue: true,
+  sharedRanks: true,
   items: const [
-    TableItemModel(title: 'USA', value: 40, values: [40, 44, 42]),
-    TableItemModel(title: 'China', value: 38, values: [38, 32, 19]),
+    TableItemModel(title: 'USA', values: [40, 44, 42]),
+    TableItemModel(title: 'China', values: [40, 27, 24]),
+    TableItemModel(title: 'Japan', values: [20, 12, 13]),
   ],
 );
+```
+
+Every item's `values` must have the same length as `valueTitles`; a mismatch
+is reported in debug mode.
+
+### Long tables
+
+Without `maxHeight`, the table is as tall as all of its rows. In a space of
+limited height (e.g. a `Scaffold` body), either set `maxHeight` — rows then
+scroll under a fixed header and are built lazily — or wrap the table in a
+`SingleChildScrollView`.
+
+### Localizing the screen-reader label
+
+Each row is announced once, e.g. "Rank 1, Real Madrid, 15". To change or
+translate it:
+
+```dart
+MedalTable(
+  // ...
+  semanticsLabelBuilder: (item, rank) => '$rank. sıra, ${item.title}',
+);
+```
+
+### Updating items
+
+`TableItemModel` is immutable. Use `copyWith` to change fields, and the
+`clear…` flags to remove optional ones:
+
+```dart
+final updated = item.copyWith(value: 16, clearHighlightColor: true);
 ```
 
 ## Installation

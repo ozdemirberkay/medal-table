@@ -9,4 +9,8 @@ library;
 
 export 'src/medal_table.dart';
 export 'src/models/table_item_model.dart'
-    show TableItemModel, TrendDirection, kDefaultMedalColors;
+    show
+        TableItemModel,
+        TrendDirection,
+        kDefaultMedalColors,
+        MedalTableSemanticsLabelBuilder;

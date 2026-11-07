@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 /// Direction of a rank's movement between periods.
 ///
@@ -28,6 +28,12 @@ const List<Color> kDefaultMedalColors = <Color>[
   Color(0xffB26A2B), // bronze — deep copper bronze
 ];
 
+/// Builds the screen-reader label of a row from its [item] and 1-based [rank].
+///
+/// Used by [MedalTable.semanticsLabelBuilder], e.g. to localize the label.
+typedef MedalTableSemanticsLabelBuilder =
+    String Function(TableItemModel item, int rank);
+
 /// A single row of a [MedalTable].
 ///
 /// The model is immutable; use [copyWith] to derive a modified copy.
@@ -38,16 +44,16 @@ class TableItemModel {
 
   /// Primary value shown in the value column.
   ///
-  /// Ignored when [values] is provided. May be any type; it is rendered via
-  /// [Object.toString]. When [MedalTable.sortByValue] is enabled this is the
-  /// field the rows are sorted by.
+  /// Ignored for display when [values] is provided. May be any type; it is
+  /// rendered via [Object.toString]. When [MedalTable.sortByValue] is enabled
+  /// rows are sorted by this field first, then by [values].
   final Object? value;
 
   /// Optional multiple values, rendered as several value columns.
   ///
   /// When provided, [MedalTable.valueTitles] supplies the column headers and
-  /// its length should match this list's length. Takes precedence over
-  /// [value].
+  /// its length must match this list's length. Takes precedence over [value]
+  /// for display.
   final List<Object?>? values;
 
   /// Called when the row is tapped. When null the row is not interactive.
@@ -77,6 +83,9 @@ class TableItemModel {
   });
 
   /// Returns a copy of this item with the given fields replaced.
+  ///
+  /// A `null` argument keeps the current value. To remove an optional field,
+  /// set its `clear…` flag instead, e.g. `copyWith(clearHighlightColor: true)`.
   TableItemModel copyWith({
     String? title,
     Object? value,
@@ -85,14 +94,40 @@ class TableItemModel {
     Widget? leading,
     Color? highlightColor,
     TrendDirection? trend,
+    bool clearValue = false,
+    bool clearValues = false,
+    bool clearOnItemPressed = false,
+    bool clearLeading = false,
+    bool clearHighlightColor = false,
   }) {
+    assert(!clearValue || value == null, 'Pass value or clearValue, not both.');
+    assert(
+      !clearValues || values == null,
+      'Pass values or clearValues, not both.',
+    );
+    assert(
+      !clearOnItemPressed || onItemPressed == null,
+      'Pass onItemPressed or clearOnItemPressed, not both.',
+    );
+    assert(
+      !clearLeading || leading == null,
+      'Pass leading or clearLeading, not both.',
+    );
+    assert(
+      !clearHighlightColor || highlightColor == null,
+      'Pass highlightColor or clearHighlightColor, not both.',
+    );
     return TableItemModel(
       title: title ?? this.title,
-      value: value ?? this.value,
-      values: values ?? this.values,
-      onItemPressed: onItemPressed ?? this.onItemPressed,
-      leading: leading ?? this.leading,
-      highlightColor: highlightColor ?? this.highlightColor,
+      value: clearValue ? null : value ?? this.value,
+      values: clearValues ? null : values ?? this.values,
+      onItemPressed: clearOnItemPressed
+          ? null
+          : onItemPressed ?? this.onItemPressed,
+      leading: clearLeading ? null : leading ?? this.leading,
+      highlightColor: clearHighlightColor
+          ? null
+          : highlightColor ?? this.highlightColor,
       trend: trend ?? this.trend,
     );
   }
@@ -124,32 +159,4 @@ class TableItemModel {
   @override
   String toString() =>
       'TableItemModel(title: $title, value: ${values ?? value}, trend: $trend)';
-}
-
-/// Builds the default leading widget for a given [rank] (1-based).
-///
-/// Ranks 1–3 get a medal-colored avatar; the rest get a numbered badge.
-/// [medalColors] must contain at least three colors for the medal ranks.
-Widget buildDefaultLeading(int rank, List<Color> medalColors) {
-  const List<IconData> medalIcons = <IconData>[
-    Icons.looks_one,
-    Icons.looks_two,
-    Icons.looks_3,
-  ];
-  if (rank >= 1 && rank <= 3 && medalColors.length >= 3) {
-    return CircleAvatar(
-      backgroundColor: medalColors[rank - 1],
-      child: Icon(medalIcons[rank - 1], color: Colors.white),
-    );
-  }
-  return CircleAvatar(
-    backgroundColor: const Color(0xffE0E0E0),
-    child: Text(
-      '$rank',
-      style: const TextStyle(
-        color: Colors.black87,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  );
 }

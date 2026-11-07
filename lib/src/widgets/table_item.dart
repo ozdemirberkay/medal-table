@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import '../models/table_item_model.dart';
 import 'table_header.dart';
 
+/// Icons for the medal ranks, in rank order.
+const List<IconData> _medalIcons = <IconData>[
+  Icons.looks_one,
+  Icons.looks_two,
+  Icons.looks_3,
+];
+
 /// A single data row of a [MedalTable].
 class TableItem extends StatelessWidget {
   final TableItemModel item;
@@ -25,6 +32,14 @@ class TableItem extends StatelessWidget {
   final bool showTrend;
   final EdgeInsetsGeometry padding;
 
+  /// Trend arrow colors; null falls back to the defaults.
+  final Color? trendUpColor;
+  final Color? trendDownColor;
+  final Color? trendSameColor;
+
+  /// Overrides the default screen-reader label when non-null.
+  final MedalTableSemanticsLabelBuilder? semanticsLabelBuilder;
+
   const TableItem({
     super.key,
     required this.item,
@@ -38,9 +53,31 @@ class TableItem extends StatelessWidget {
     this.valueFlex = 2,
     this.showTrend = false,
     this.padding = const EdgeInsets.symmetric(vertical: 2),
+    this.trendUpColor,
+    this.trendDownColor,
+    this.trendSameColor,
+    this.semanticsLabelBuilder,
   });
 
   List<Object?> get _values => item.values ?? <Object?>[item.value];
+
+  /// A medal for ranks that have a medal color, a numbered badge otherwise.
+  Widget _defaultLeading(BuildContext context) {
+    if (rank <= _medalIcons.length && rank <= medalColors.length) {
+      return CircleAvatar(
+        backgroundColor: medalColors[rank - 1],
+        child: Icon(_medalIcons[rank - 1], color: Colors.white),
+      );
+    }
+    final ColorScheme colors = Theme.of(context).colorScheme;
+    return CircleAvatar(
+      backgroundColor: colors.surfaceContainerHighest,
+      child: Text(
+        '$rank',
+        style: TextStyle(color: colors.onSurface, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
 
   Widget _valueText(Object? value) {
     return Text(
@@ -50,22 +87,45 @@ class TableItem extends StatelessWidget {
     );
   }
 
-  Widget? _trendIcon() {
+  Widget? _trendIcon(BuildContext context) {
     switch (item.trend) {
       case TrendDirection.up:
-        return const Icon(Icons.arrow_upward, size: 16, color: Colors.green);
+        return Icon(
+          Icons.arrow_upward,
+          size: 16,
+          color: trendUpColor ?? Colors.green,
+        );
       case TrendDirection.down:
-        return const Icon(Icons.arrow_downward, size: 16, color: Colors.red);
+        return Icon(
+          Icons.arrow_downward,
+          size: 16,
+          color: trendDownColor ?? Colors.red,
+        );
       case TrendDirection.same:
-        return const Icon(Icons.remove, size: 16, color: Colors.grey);
+        return Icon(
+          Icons.remove,
+          size: 16,
+          color: trendSameColor ?? Theme.of(context).colorScheme.outline,
+        );
       case TrendDirection.none:
         return null;
     }
   }
 
-  String _semanticsLabel() {
-    final values = _values.map((v) => v?.toString() ?? '').join(', ');
-    return 'Rank $rank, ${item.title}, $values';
+  String _defaultSemanticsLabel() {
+    return <String?>[
+      'Rank $rank',
+      item.title,
+      for (final value in _values)
+        if (value != null) value.toString(),
+      if (showTrend)
+        switch (item.trend) {
+          TrendDirection.up => 'moving up',
+          TrendDirection.down => 'moving down',
+          TrendDirection.same => 'no change',
+          TrendDirection.none => null,
+        },
+    ].nonNulls.join(', ');
   }
 
   @override
@@ -75,7 +135,7 @@ class TableItem extends StatelessWidget {
       children: [
         Expanded(
           flex: leadingFlex,
-          child: item.leading ?? buildDefaultLeading(rank, medalColors),
+          child: item.leading ?? _defaultLeading(context),
         ),
         Expanded(
           flex: labelFlex,
@@ -89,15 +149,14 @@ class TableItem extends StatelessWidget {
           flex: valueFlex,
           child: Row(
             children: [
-              for (final value in _values)
-                Expanded(child: _valueText(value)),
+              for (final value in _values) Expanded(child: _valueText(value)),
             ],
           ),
         ),
         if (showTrend)
           SizedBox(
             width: kTrendColumnWidth,
-            child: _trendIcon() ?? const SizedBox.shrink(),
+            child: _trendIcon(context) ?? const SizedBox.shrink(),
           ),
       ],
     );
@@ -108,23 +167,42 @@ class TableItem extends StatelessWidget {
               ? BoxDecoration(color: backgroundColor)
               : null);
 
-    final Widget content = Container(
-      decoration: resolvedDecoration,
-      padding: padding,
-      child: row,
-    );
+    final bool tappable = item.onItemPressed != null;
 
-    final Widget interactive = item.onItemPressed != null
+    // Tappable rows paint their background with Ink, on the same Material
+    // layer as the ripple, so the ripple is drawn on top instead of being
+    // hidden behind an opaque Container.
+    final Widget content = tappable
         ? Material(
             type: MaterialType.transparency,
-            child: InkWell(onTap: item.onItemPressed, child: content),
+            child: InkWell(
+              onTap: item.onItemPressed,
+              borderRadius: resolvedDecoration?.borderRadius?.resolve(
+                Directionality.maybeOf(context),
+              ),
+              child: Ink(
+                decoration: resolvedDecoration,
+                padding: padding,
+                child: row,
+              ),
+            ),
           )
-        : content;
+        : Container(
+            decoration: resolvedDecoration,
+            padding: padding,
+            child: row,
+          );
 
+    // The row is announced once with a single label; the cells' own text is
+    // excluded so screen readers don't read every value twice.
     return Semantics(
-      button: item.onItemPressed != null,
-      label: _semanticsLabel(),
-      child: interactive,
+      container: true,
+      excludeSemantics: true,
+      button: tappable,
+      label:
+          semanticsLabelBuilder?.call(item, rank) ?? _defaultSemanticsLabel(),
+      onTap: item.onItemPressed,
+      child: content,
     );
   }
 }

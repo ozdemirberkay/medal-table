@@ -37,11 +37,7 @@ class TableHeader extends StatelessWidget {
   Widget _cell(String title, int flex) {
     return Expanded(
       flex: flex,
-      child: Text(
-        title,
-        textAlign: TextAlign.center,
-        style: headerTextStyle,
-      ),
+      child: Text(title, textAlign: TextAlign.center, style: headerTextStyle),
     );
   }
 
